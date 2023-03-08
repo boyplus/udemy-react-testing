@@ -6,7 +6,6 @@ const UserForm = ({ onUserAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, email);
     onUserAdd({ name, email });
   }
 
