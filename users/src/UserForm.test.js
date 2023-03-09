@@ -24,8 +24,9 @@ test('it calls onUserAdd when the form is submitted', () => {
   render(<UserForm onUserAdd={mock} />);
 
   // Find two inputs (use array is not a good idea since order or input might be changed over time)
-  // should query by label instead
-  const [nameInput, emailInput] = screen.getAllByRole('textbox');
+  // should query by label instead. That's why we move to this code instead of getAllByRole
+  const nameInput = screen.getByRole('textbox', { name: /name/i });
+  const emailInput = screen.getByRole('textbox', { name: /email/i });
 
   // Simulate typing email
   user.click(nameInput);

@@ -12,8 +12,9 @@ const UserForm = ({ onUserAdd }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Name</label>
+        <label htmlFor='name'>Name</label>
         <input
+          id='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
