@@ -47,3 +47,23 @@ test('it calls onUserAdd when the form is submitted', () => {
   expect(mock).toHaveBeenCalledWith({ name: 'jane', email: 'jane@gmail.com' });
 });
 
+test('it empty two inputs when form is submitted', () => {
+  // We can use empty arrow function instead of jest.fn()
+  // Since we do not care about this function at all
+  render(<UserForm onUserAdd={() => { }} />);
+
+  const nameInput = screen.getByRole('textbox', { name: /name/i });
+  const emailInput = screen.getByRole('textbox', { name: /email/i });
+  const button = screen.getByRole('button');
+
+  user.click(nameInput);
+  user.keyboard('jane');
+  user.click(emailInput);
+  user.keyboard('jane@gmail.com');
+
+  user.click(button);
+
+  expect(nameInput).toHaveValue('');
+  expect(emailInput).toHaveValue('');
+});
+
