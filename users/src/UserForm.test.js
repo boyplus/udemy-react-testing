@@ -52,6 +52,7 @@ test('it empty two inputs when form is submitted', () => {
   // Since we do not care about this function at all
   render(<UserForm onUserAdd={() => { }} />);
 
+  // name here comes from label
   const nameInput = screen.getByRole('textbox', { name: /name/i });
   const emailInput = screen.getByRole('textbox', { name: /email/i });
   const button = screen.getByRole('button');
