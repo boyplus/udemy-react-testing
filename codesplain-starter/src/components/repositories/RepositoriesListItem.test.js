@@ -18,8 +18,14 @@ function renderComponent() {
   );
 }
 
-test('shows a link ti github homepage for this repo', () => {
+test('shows a link ti github homepage for this repo', async () => {
   renderComponent();
 
-
+  await screen.findByRole('img', { name: 'Javascript' });
 });
+
+const pause = () => {
+  return new Promise(resolve => {
+    setTimeout(() => { resolve() }, 100)
+  })
+}
