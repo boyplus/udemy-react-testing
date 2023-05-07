@@ -61,9 +61,14 @@ test('renders two links for each language', async () => {
       name: new RegExp(`${language}_`)
     });
 
+    // Assert that the links have the appropriate full_name
     expect(links).toHaveLength(2);
+    expect(links[0]).toHaveTextContent(`${language}_one`);
+    expect(links[1]).toHaveTextContent(`${language}_two`);
+
+    expect(links[0]).toHaveAttribute('href', `/repositories/${language}_one`);
+    expect(links[1]).toHaveAttribute('href', `/repositories/${language}_two`);
   }
-  // Assert that the links have the appropriate full_name
 });
 
 const pause = () => new Promise(resolve => {
