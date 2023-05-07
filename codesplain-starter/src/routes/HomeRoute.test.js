@@ -1,39 +1,25 @@
 import { render, screen } from "@testing-library/react";
-import { setupServer } from 'msw/node';
-import { rest } from "msw";
 import { MemoryRouter } from "react-router";
 import HomeRoute from "./HomeRoute";
 
-const handlers = [
-  rest.get('/api/repositories', (req, res, ctx) => {
-    const result = req.url.searchParams.get('q').split('language:');
-    const language = result[1];
+import { createServer } from '../test/server'
 
-    return res(ctx.json(
-      {
+createServer([
+  {
+    path: '/api/repositories',
+    method: 'get',
+    res: (req) => {
+      const result = req.url.searchParams.get('q').split('language:');
+      const language = result[1];
+      return {
         items: [
           { id: 1, full_name: `${language}_one` },
           { id: 2, full_name: `${language}_two` },
         ]
-      }
-    ));
-  })
-];
-
-const server = setupServer(...handlers);
-
-beforeAll(() => {
-  server.listen();
-});
-
-afterEach(() => {
-  // reset to default initiate
-  server.resetHandlers();
-});
-
-afterAll(() => {
-  server.close();
-});
+      };
+    }
+  }
+]);
 
 function renderComponent() {
   render(
